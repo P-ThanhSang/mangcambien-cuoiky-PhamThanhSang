@@ -1,0 +1,31 @@
+# Node.js dependencies
+node_modules/
+dist/
+.npm
+.eslintcache
+
+# Python environment and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+ENV/
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Big media files (video demo)
+*.mp4
+
+# Git Worktrees
+.worktrees/
+worktrees/
+
+# Office temporary/lock files
+~$*
+
