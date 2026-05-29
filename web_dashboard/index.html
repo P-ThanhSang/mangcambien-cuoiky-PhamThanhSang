@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge AI Dashboard - Realtime Drink Detector</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="pulse-dot"></span>
+                <h1>PTIT EDGE-AI</h1>
+            </div>
+            <div class="student-info">
+                <span class="badge">IoT Project</span>
+                <p>Phạm Thanh Sang | N23DCCI064</p>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Khu vực Camera Feed -->
+            <section class="card camera-card">
+                <div class="card-header">
+                    <h2>Live Camera Feed</h2>
+                    <span class="status-badge" id="camera-status">Đang tắt</span>
+                </div>
+                <div class="video-container">
+                    <video id="webcam" autoplay playsinline muted></video>
+                    <canvas id="overlay"></canvas>
+                    <div class="no-camera" id="no-camera-msg">
+                        <svg viewBox="0 0 24 24" width="48" height="48">
+                            <path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
+                        </svg>
+                        <p>Vui lòng khởi động Camera</p>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="btn-toggle-cam" class="btn btn-primary">Bật Camera</button>
+                    <div class="threshold-control">
+                        <label for="range-threshold">Độ tin cậy: <span id="val-threshold">0.5</span></label>
+                        <input type="range" id="range-threshold" min="0.1" max="0.9" step="0.05" value="0.5">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Khu vực Phân tích chỉ số -->
+            <section class="card stats-card">
+                <div class="card-header">
+                    <h2>Model Analytics</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Inference Time</span>
+                        <span class="stat-val" id="val-inference">-- ms</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">FPS</span>
+                        <span class="stat-val" id="val-fps">--</span>
+                    </div>
+                </div>
+                
+                <div class="class-distribution">
+                    <h3>Probability Distribution</h3>
+                    <div class="bar-chart">
+                        <div class="chart-row">
+                            <span class="label">Cốc nước</span>
+                            <div class="bar-container"><div class="bar" id="bar-coc" style="width: 0%"></div></div>
+                            <span class="pct" id="pct-coc">0%</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="label">Chai nước</span>
+                            <div class="bar-container"><div class="bar" id="bar-chai" style="width: 0%"></div></div>
+                            <span class="pct" id="pct-chai">0%</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="label">Lon bia</span>
+                            <div class="bar-container"><div class="bar" id="bar-bia" style="width: 0%"></div></div>
+                            <span class="pct" id="pct-bia">0%</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="label">Lon coca</span>
+                            <div class="bar-container"><div class="bar" id="bar-coca" style="width: 0%"></div></div>
+                            <span class="pct" id="pct-coca">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nhật ký phát hiện -->
+            <section class="card log-card">
+                <div class="card-header">
+                    <h2>Realtime Detections Log</h2>
+                    <button id="btn-clear-log" class="btn btn-secondary">Xoá Log</button>
+                </div>
+                <div class="log-container" id="log-list">
+                    <div class="log-item empty">Chưa phát hiện vật thể nào...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edge Impulse JS SDK Wrapper -->
+    <script src="edge-impulse-standalone/edge-impulse-standalone.js"></script>
+    <script src="edge-impulse-standalone/run-impulse.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
